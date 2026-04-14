@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Lock, Mail, Users, ArrowRight, ShieldCheck } from 'lucide-react';
 
 const Login = () => {
   const [email, setEmail] = useState('admin@alliedmed.co.in');
   const [password, setPassword] = useState('AlliedAdmin@2026');
+  const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
     console.log(`Logging in with ${email}`);
     // Future: Route to Dashboard / HRMS Command Center
+    navigate('/setup/company');
   };
 
   return (
