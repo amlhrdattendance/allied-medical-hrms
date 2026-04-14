@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model CompanyProfile {
+  id               String   @id @default(uuid())
+  companyName      String
+  dateEstablished  String?
+  cinLpin          String?
+  tan              String?
+  website          String?
+  
+  address1         String?
+  address2         String?
+  address3         String?
+  phone1           String?
+  phone2           String?
+  shortName        String?
+  
+  pfEnabled        Boolean  @default(false)
+  esiEnabled       Boolean  @default(false)
+  ptEnabled        Boolean  @default(false)
+  tdsEnabled       Boolean  @default(false)
+  lwfEnabled       Boolean  @default(false)
+
+  updatedAt        DateTime @updatedAt
+  createdAt        DateTime @default(now())
+}
