@@ -3,27 +3,12 @@ import { motion } from 'framer-motion';
 import { Lock, Mail, Users, ArrowRight, ShieldCheck } from 'lucide-react';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [activeRole, setActiveRole] = useState('Super Admin');
-
-  // 1-Click Auto-Fill Demo Accounts
-  const demoAccounts = {
-    'Super Admin': { email: 'admin@alliedmed.co.in', pass: 'AlliedAdmin@2026' },
-    'Admin (HR)': { email: 'hr@alliedmed.co.in', pass: 'HrPass@2026' },
-    'Manager': { email: 'manager@alliedmed.co.in', pass: 'Manager@2026' },
-    'Employee': { email: 'emp@alliedmed.co.in', pass: 'Emp@2026' }
-  };
-
-  const handleRoleSelect = (role) => {
-    setActiveRole(role);
-    setEmail(demoAccounts[role].email);
-    setPassword(demoAccounts[role].pass);
-  };
+  const [email, setEmail] = useState('admin@alliedmed.co.in');
+  const [password, setPassword] = useState('AlliedAdmin@2026');
 
   const handleLogin = (e) => {
     e.preventDefault();
-    console.log(`Logging in as ${activeRole} with ${email}`);
+    console.log(`Logging in with ${email}`);
     // Future: Route to Dashboard / HRMS Command Center
   };
 
@@ -45,23 +30,6 @@ const Login = () => {
           </div>
           <h1 style={{ margin: 0, fontSize: '1.8rem', fontWeight: 700, letterSpacing: '-0.5px' }}>Allied Medical HRMS</h1>
           <p style={{ margin: '8px 0 0 0', color: 'rgba(255,255,255,0.5)', fontSize: '0.9rem' }}>Enterprise Process Automation Engine</p>
-        </div>
-
-        {/* 1-Click Demo Section */}
-        <div style={{ marginBottom: '25px' }}>
-          <p style={{ margin: '0 0 10px 0', fontSize: '0.75rem', fontWeight: 600, textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', letterSpacing: '1px' }}>Quick Access (Demo)</p>
-          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-            {Object.keys(demoAccounts).map((role) => (
-              <button 
-                key={role} 
-                className={`btn-role-tab ${activeRole === role ? 'active' : ''}`}
-                onClick={() => handleRoleSelect(role)}
-                type="button"
-              >
-                {role}
-              </button>
-            ))}
-          </div>
         </div>
 
         <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
