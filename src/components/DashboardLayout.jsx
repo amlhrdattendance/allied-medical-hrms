@@ -11,8 +11,8 @@ const DashboardLayout = () => {
         
         {/* Logo Area */}
         <div style={{ height: '60px', display: 'flex', alignItems: 'center', padding: '0 20px', borderBottom: '1px solid #e2e8f0' }}>
-          <div style={{ width: '24px', height: '24px', background: 'linear-gradient(135deg, #FF4B2B, #FF416C, #4A00E0, #8E2DE2)', borderRadius: '4px', marginRight: '10px' }} />
-          <span style={{ fontWeight: 700, fontSize: '1rem', color: '#1e293b' }}>Saral HRM</span>
+          <div style={{ width: '24px', height: '24px', background: 'linear-gradient(135deg, #2563eb, #3b82f6, #60a5fa)', borderRadius: '4px', marginRight: '10px' }} />
+          <span style={{ fontWeight: 700, fontSize: '1rem', color: '#1e293b' }}>Allied HRMS</span>
         </div>
 
         {/* Navigation */}
