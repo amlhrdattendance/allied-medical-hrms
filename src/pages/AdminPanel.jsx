@@ -5,7 +5,7 @@ import {
   Building2, 
   ShieldAlert, 
   History, 
-  Global, 
+  Globe, 
   BellRing,
   Database,
   ChevronRight
