@@ -25,7 +25,7 @@ const CompanySetup = () => {
 
   useEffect(() => {
     // Hydrate from Real Backend
-    fetch('http://localhost:3001/api/company/setup')
+    fetch('/api/company/setup')
       .then(res => res.json())
       .then(json => {
         if (json.data) {
@@ -53,7 +53,7 @@ const CompanySetup = () => {
   const executeSave = async () => {
     setIsSaving(true);
     try {
-      const response = await fetch('http://localhost:3001/api/company/setup', {
+      const response = await fetch('/api/company/setup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

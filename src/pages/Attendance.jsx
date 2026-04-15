@@ -36,8 +36,7 @@ const Attendance = () => {
     setIsLoading(true);
     try {
         const endpoint = isClockedIn ? 'clock-out' : 'clock-in';
-        // In a real scenario, we'd get the actual lat/long and IP
-        const res = await fetch(`http://localhost:3001/api/attendance/${endpoint}`, {
+        const res = await fetch(`/api/attendance/${endpoint}`, {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json',

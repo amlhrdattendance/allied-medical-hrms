@@ -43,7 +43,7 @@ const EmployeeMaster = () => {
 
   const fetchMasters = async () => {
     try {
-      const res = await fetch('http://localhost:3001/api/masters', {
+      const res = await fetch('/api/masters', {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
       });
       const result = await res.json();
@@ -64,7 +64,7 @@ const EmployeeMaster = () => {
   const handleSave = async () => {
     setIsSaving(true);
     try {
-      const response = await fetch('http://localhost:3001/api/employees', {
+      const response = await fetch('/api/employees', {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
