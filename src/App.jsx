@@ -1,10 +1,15 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import Layout from './components/Layout';
 import Login from './pages/Login';
-import DashboardLayout from './components/DashboardLayout';
 import CompanySetup from './pages/CompanySetup';
 import UserManagement from './pages/UserManagement';
 import EmployeeMaster from './pages/EmployeeMaster';
+import Dashboard from './pages/Dashboard';
+import Attendance from './pages/Attendance';
+import LeaveManagement from './pages/LeaveManagement';
+import Payroll from './pages/Payroll';
+import AdminPanel from './pages/AdminPanel';
 
 function App() {
   return (
@@ -12,17 +17,20 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         
-        {/* Protected Dashboard Layout */}
-        <Route element={<DashboardLayout />}>
-          {/* As soon as Super Admin logs in, they hit the Setup Flow */}
-          <Route path="/" element={<Navigate to="/setup/company" replace />} />
-          <Route path="/setup/company" element={<CompanySetup />} />
-          <Route path="/user-management/roles" element={<UserManagement />} />
-          <Route path="/onboard" element={<EmployeeMaster />} />
-          
-          {/* Fallbacks for other sidebar links shown in mockup */}
-          <Route path="*" element={<div style={{ padding: '20px', background: '#fff', borderRadius: '8px', border: '1px solid #e2e8f0' }}><h2>Construction Mode</h2><p>This module is pending build in the 'One-by-One' execution strategy.</p></div>} />
-        </Route>
+        {/* Main Application Routes */}
+        <Route path="/" element={<Layout><Dashboard /></Layout>} />
+        <Route path="/employees" element={<Layout><EmployeeMaster /></Layout>} />
+        <Route path="/attendance" element={<Layout><Attendance /></Layout>} />
+        <Route path="/leave" element={<Layout><LeaveManagement /></Layout>} />
+        <Route path="/payroll" element={<Layout><Payroll /></Layout>} />
+        <Route path="/admin" element={<Layout><AdminPanel /></Layout>} />
+        
+        {/* Supporting Admin Routes */}
+        <Route path="/setup" element={<Layout><CompanySetup /></Layout>} />
+        <Route path="/users" element={<Layout><UserManagement /></Layout>} />
+        
+        {/* Fallback */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
   );

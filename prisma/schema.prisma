@@ -6,9 +6,21 @@ datasource db {
   provider = "sqlite"
 }
 
+model User {
+  id        String   @id @default(uuid())
+  username  String   @unique
+  password  String
+  role      String   @default("Employee") // Admin, HR, Manager, Employee
+  employeeId String? @unique
+  employee  EmployeeMaster? @relation(fields: [employeeId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 model CompanyProfile {
   id               String   @id @default(uuid())
   companyName      String
+  logo             String?
   dateEstablished  String?
   cinLpin          String?
   tan              String?
@@ -43,6 +55,12 @@ model Department {
   employees        EmployeeMaster[]
 }
 
+model Designation {
+  id        String   @id @default(uuid())
+  title     String
+  employees EmployeeMaster[]
+}
+
 model EmployeeMaster {
   id               String   @id @default(uuid())
   employeeCode     String   @unique
@@ -53,7 +71,15 @@ model EmployeeMaster {
   gender           String?
   dob              String?
 
-  // Dates
+  // Classification
+  branchId         String?
+  branch           Branch?  @relation(fields: [branchId], references: [id])
+  departmentId     String?
+  department       Department? @relation(fields: [departmentId], references: [id])
+  designationId    String?
+  designation      Designation? @relation(fields: [designationId], references: [id])
+
+  // Employment Dates
   dateOfJoining    String?
   probationEnd     String?
   confirmationDate String?
@@ -62,14 +88,66 @@ model EmployeeMaster {
   panNumber        String?
   uanNumber        String?
   bankAccount      String?
+  ifscCode         String?
+  esiNumber        String?
 
-  // Relations
-  branchId         String?
-  branch           Branch?  @relation(fields: [branchId], references: [id])
-  
-  departmentId     String?
-  department       Department? @relation(fields: [departmentId], references: [id])
+  // Features
+  user             User?
+  attendance       Attendance[]
+  leaveRequests    LeaveRequest[]
+  salaryRates      SalaryRate[]
+  documents        Document[]
 
   updatedAt        DateTime @updatedAt
   createdAt        DateTime @default(now())
+}
+
+model Attendance {
+  id           String   @id @default(uuid())
+  employeeId   String
+  employee     EmployeeMaster @relation(fields: [employeeId], references: [id])
+  date         String   // YYYY-MM-DD
+  clockIn      DateTime?
+  clockOut     DateTime?
+  isLate       Boolean  @default(false)
+  isEarlyExit  Boolean  @default(false)
+  locationIn   String?
+  locationOut  String?
+  ipAddress    String?
+  status       String   @default("Present") // Present, Absent, Half-Day, On-Leave
+  remarks      String?
+}
+
+model LeaveRequest {
+  id           String   @id @default(uuid())
+  employeeId   String
+  employee     EmployeeMaster @relation(fields: [employeeId], references: [id])
+  leaveType    String   // CL, EL, SL, LWP
+  startDate    String
+  endDate      String
+  totalDays    Float
+  reason       String?
+  status       String   @default("Pending") // Pending, Approved, Rejected
+  appliedAt    DateTime @default(now())
+  approverId   String?
+}
+
+model SalaryRate {
+  id            String   @id @default(uuid())
+  employeeId    String
+  employee      EmployeeMaster @relation(fields: [employeeId], references: [id])
+  componentName String   // Basic, HRA, etc.
+  amount        Float
+  frequency     String   @default("Monthly")
+  effectiveFrom String
+}
+
+model Document {
+  id            String   @id @default(uuid())
+  employeeId    String
+  employee      EmployeeMaster @relation(fields: [employeeId], references: [id])
+  documentName  String   // PAN Card, Aadhar Card, etc.
+  documentType  String
+  fileUrl       String
+  uploadedAt    DateTime @default(now())
 }
